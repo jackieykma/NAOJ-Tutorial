@@ -33,5 +33,7 @@ applycal(vis=msfile_spw, gaintable=['cal.B0','cal.D0','cal.F0'], gainfield=[pric
 
 ### Imaging ###
 split(vis=msfile_spw,outputvis="m83_750C_target.ms/",field="1~9")
-tclean(vis='m83_750C_target.ms', imagename='m83_750C_spw0', spw='0', threshold='0.4mJy', gain=0.1, imsize=450, cell='4.0arcsec', stokes='IQUV', specmode='mfs', gridder='mosaic', deconvolver='multiscale', scales=[0,4,12], smallscalebias=0.6, weighting='briggs', robust=0.5, interactive=True, niter=20000, savemodel='modelcolumn', phasecenter='J2000 13h37m00 -29d51m54',
-restart=True, calcres=False, calcpsf=False, usemask='auto-multithresh', sidelobethreshold=2.0, noisethreshold=4.25, lownoisethreshold=1.5, minbeamfrac=0.3, growiterations=75, negativethreshold=0.0, verbose=True)
+tclean(vis='m83_750C_target.ms', imagename='m83_750C_spw0', spw='0', threshold='0.4mJy', gain=0.1, imsize=450, cell='4.0arcsec', stokes='IQUV', specmode='cube', width='64MHz', gridder='mosaic', deconvolver='multiscale', scales=[0,4,12], smallscalebias=0.6, weighting='briggs', robust=0.5, interactive=True, niter=6000, savemodel='modelcolumn', phasecenter='J2000 13h37m00 -29d51m54',
+usemask='auto-multithresh', sidelobethreshold=2.0, noisethreshold=4.25, lownoisethreshold=1.5, minbeamfrac=0.3, growiterations=75, negativethreshold=0.0, verbose=True)
+#restart=True, calcres=False, calcpsf=False) 
+
