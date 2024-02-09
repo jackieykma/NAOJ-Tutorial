@@ -36,4 +36,5 @@ split(vis=msfile_spw,outputvis="m83_750C_target.ms/",field="1~9")
 tclean(vis='m83_750C_target.ms', imagename='m83_750C_spw0', spw='0', threshold='0.4mJy', gain=0.1, imsize=450, cell='4.0arcsec', stokes='IQUV', specmode='cube', width='64MHz', gridder='mosaic', deconvolver='multiscale', scales=[0,4,12], smallscalebias=0.6, weighting='briggs', robust=0.5, interactive=True, niter=6000, savemodel='modelcolumn', phasecenter='J2000 13h37m00 -29d51m54',
 usemask='auto-multithresh', sidelobethreshold=2.0, noisethreshold=4.25, lownoisethreshold=1.5, minbeamfrac=0.3, growiterations=75, negativethreshold=0.0, verbose=True)
 #restart=True, calcres=False, calcpsf=False) 
+impbcor(imagename='m83_750C_spw0.im', pbimage='m83_750C_spw0.pb', outfile='m83_750C_spw0.impbcor')
 
