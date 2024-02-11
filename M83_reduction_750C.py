@@ -41,14 +41,39 @@ applycal(vis=msfile, gaintable=['cal.750C.B0','cal.750C.D0','cal.750C.F0'], gain
 ### Produce new MS file with M83 only ###
 split(vis=msfile,outputvis="m83_750C_target.ms/",field="1~9")
 
-### Imaging: Stokes I MFS for SPW0 (4.5-6.5 GHz) ###
-### Only using the first 1 GHz data to save time ###
-tclean(vis='m83_750C_target.ms', imagename='m83_750C_spw0', spw='0:0~1024', threshold='0.4mJy', gain=0.1, imsize=450, cell='4.0arcsec', stokes='I', specmode='mfs', gridder='mosaic', deconvolver='hogbom', weighting='briggs', robust=0.5, interactive=False, niter=1000, savemodel='modelcolumn', phasecenter='J2000 13h37m00 -29d51m54', usemask='auto-multithresh', sidelobethreshold=2.0, noisethreshold=4.25, lownoisethreshold=1.5, minbeamfrac=0.3, growiterations=75, negativethreshold=0.0, verbose=True)
-impbcor(imagename='m83_750C_spw0.image', pbimage='m83_750C_spw0.pb', outfile='m83_750C_spw0.pbcor.image', cutoff=0.05)
 
-### Imaging: IQUV cube for SPW0 (4.5-6.5 GHz; 64 MHz channels) ###
-tclean(vis='m83_750C_target.ms', imagename='m83_750C_spw0_cube', spw='0', threshold='0.4mJy', gain=0.1, imsize=450, cell='4.0arcsec', stokes='IQUV', specmode='cube', width='64MHz', gridder='mosaic', deconvolver='multiscale', scales=[0,4,12], smallscalebias=0.6, weighting='briggs', robust=0.5, interactive=False, niter=6000, savemodel='modelcolumn', phasecenter='J2000 13h37m00 -29d51m54', usemask='auto-multithresh', sidelobethreshold=2.0, noisethreshold=4.25, lownoisethreshold=1.5, minbeamfrac=0.3, growiterations=75, negativethreshold=0.0, verbose=True)
-impbcor(imagename='m83_750C_spw0_cube.im', pbimage='m83_750C_spw0_cube.pb', outfile='m83_750C_spw0_cube.pbcor.image')
+
+### Running shallow, interactive CLEAN-ing ###
+### Run this during the Tutorial session ###
+tclean(vis='m83_750C_target.ms', imagename='m83_750C_shallow_mfs', spw='0:0~512', threshold='1.0mJy', gain=0.1, imsize=450, cell='4.0arcsec', stokes='I', specmode='mfs', gridder='mosaic', deconvolver='multiscale', scales=[0,4,12], smallscalebias=0.6, weighting='briggs', robust=0.5, interactive=True, niter=250, phasecenter='J2000 13h37m00 -29d51m54', usemask='auto-multithresh', sidelobethreshold=2.0, noisethreshold=4.25, lownoisethreshold=1.5, minbeamfrac=0.3, growiterations=75, negativethreshold=0.0, verbose=True)
+impbcor(imagename='m83_750C_shallow_mfs.image', pbimage='m83_750C_shallow_mfs.pb', outfile='m83_750C_shallow_mfs.pbcor.image', cutoff=0.05)
+
+
+
+'''
+Commands below may take some time
+Can be seen as "homework" to do after tutorial
+Consider running this within "screen"
+'''
+
+### Imaging: Stokes I MFS for SPW0 (4.5-6.5 GHz) ###
+### This will probably take over an hour ###
+tclean(vis='m83_750C_target.ms', imagename='m83_750C_spw0_mfs', spw='0', threshold='0.4mJy', gain=0.1, imsize=450, cell='4.0arcsec', stokes='I', specmode='mfs', gridder='mosaic', deconvolver='multiscale', scales=[0,4,12,36], smallscalebias=0.6, weighting='briggs', robust=0.5, interactive=False, niter=50000, savemodel='modelcolumn', phasecenter='J2000 13h37m00 -29d51m54', usemask='auto-multithresh', sidelobethreshold=2.0, noisethreshold=4.25, lownoisethreshold=1.5, minbeamfrac=0.3, growiterations=75, negativethreshold=0.0, verbose=True)
+impbcor(imagename='m83_750C_spw0_mfs.image', pbimage='m83_750C_spw0_mfs.pb', outfile='m83_750C_spw0_mfs.pbcor.image', cutoff=0.05)
+
+### Imaging: IQU cube for SPW0 (4.5-6.5 GHz; 128 MHz channels) ###
+### Each Stokes parameter will likely take over an hour ###
+#tclean(vis='m83_750C_target.ms', imagename='m83_750C_spw0_cube.I', spw='0', threshold='1.5mJy', gain=0.1, imsize=450, cell='4.0arcsec', stokes='I', specmode='cube', width=128, gridder='mosaic', deconvolver='multiscale', scales=[0,4,12,36], smallscalebias=0.6, weighting='briggs', robust=0.5, interactive=False, niter=50000, phasecenter='J2000 13h37m00 -29d51m54', usemask='auto-multithresh', sidelobethreshold=2.0, noisethreshold=4.25, lownoisethreshold=1.5, minbeamfrac=0.3, negativethreshold=0.0, verbose=True)
+#impbcor(imagename='m83_750C_spw0_cube.I.image', pbimage='m83_750C_spw0_cube.I.pb', outfile='m83_750C_spw0_cube.I.pbcor.image')
+
+#tclean(vis='m83_750C_target.ms', imagename='m83_750C_spw0_cube.Q', spw='0', threshold='1.5mJy', gain=0.1, imsize=450, cell='4.0arcsec', stokes='Q', specmode='cube', width=128, gridder='mosaic', deconvolver='multiscale', scales=[0,4,12,36], smallscalebias=0.6, weighting='briggs', robust=0.5, interactive=False, niter=50000, phasecenter='J2000 13h37m00 -29d51m54', usemask='auto-multithresh', sidelobethreshold=2.0, noisethreshold=4.25, lownoisethreshold=1.5, minbeamfrac=0.3, negativethreshold=0.0, verbose=True)
+#impbcor(imagename='m83_750C_spw0_cube.Q.image', pbimage='m83_750C_spw0_cube.Q.pb', outfile='m83_750C_spw0_cube.Q.pbcor.image')
+
+#tclean(vis='m83_750C_target.ms', imagename='m83_750C_spw0_cube.U', spw='0', threshold='1.5mJy', gain=0.1, imsize=450, cell='4.0arcsec', stokes='U', specmode='cube', width=128, gridder='mosaic', deconvolver='multiscale', scales=[0,4,12,36], smallscalebias=0.6, weighting='briggs', robust=0.5, interactive=False, niter=50000, phasecenter='J2000 13h37m00 -29d51m54', usemask='auto-multithresh', sidelobethreshold=2.0, noisethreshold=4.25, lownoisethreshold=1.5, minbeamfrac=0.3, negativethreshold=0.0, verbose=True)
+#impbcor(imagename='m83_750C_spw0_cube.U.image', pbimage='m83_750C_spw0_cube.U.pb', outfile='m83_750C_spw0_cube.U.pbcor.image')
+
+
+
 
 
 
