@@ -58,8 +58,8 @@ Consider running this within "screen"
 
 ### Imaging: Stokes I MFS for SPW0 (4.5-6.5 GHz) ###
 ### This will probably take over an hour ###
-tclean(vis='m83_750C_target.ms', imagename='m83_750C_spw0_mfs', spw='0', threshold='0.4mJy', gain=0.1, imsize=450, cell='4.0arcsec', stokes='I', specmode='mfs', gridder='mosaic', deconvolver='multiscale', scales=[0,4,12,36], smallscalebias=0.6, weighting='briggs', robust=0.5, interactive=False, niter=50000, savemodel='modelcolumn', phasecenter='J2000 13h37m00 -29d51m54', usemask='auto-multithresh', sidelobethreshold=2.0, noisethreshold=4.25, lownoisethreshold=1.5, minbeamfrac=0.3, growiterations=75, negativethreshold=0.0, verbose=True)
-impbcor(imagename='m83_750C_spw0_mfs.image', pbimage='m83_750C_spw0_mfs.pb', outfile='m83_750C_spw0_mfs.pbcor.image', cutoff=0.05)
+#tclean(vis='m83_750C_target.ms', imagename='m83_750C_spw0_mfs', spw='0', threshold='0.4mJy', gain=0.1, imsize=450, cell='4.0arcsec', stokes='I', specmode='mfs', gridder='mosaic', deconvolver='multiscale', scales=[0,4,12,36], smallscalebias=0.6, weighting='briggs', robust=0.5, interactive=False, niter=50000, savemodel='modelcolumn', phasecenter='J2000 13h37m00 -29d51m54', usemask='auto-multithresh', sidelobethreshold=2.0, noisethreshold=4.25, lownoisethreshold=1.5, minbeamfrac=0.3, growiterations=75, negativethreshold=0.0, verbose=True)
+#impbcor(imagename='m83_750C_spw0_mfs.image', pbimage='m83_750C_spw0_mfs.pb', outfile='m83_750C_spw0_mfs.pbcor.image', cutoff=0.05)
 
 ### Imaging: IQU cube for SPW0 (4.5-6.5 GHz; 128 MHz channels) ###
 ### Each Stokes parameter will likely take over an hour ###
